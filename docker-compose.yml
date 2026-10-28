@@ -1,0 +1,58 @@
+services:
+  maruti-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: maruti-marketing-ai-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - NEXT_PUBLIC_GEMINI_API_KEY=${NEXT_PUBLIC_GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-3.8-flash}
+      - NEXT_PUBLIC_GEMINI_MODEL=${NEXT_PUBLIC_GEMINI_MODEL:-gemini-3.8-flash}
+      - OUTPUT_MODE=${OUTPUT_MODE:-medium}
+      - NEXT_PUBLIC_OUTPUT_MODE=${NEXT_PUBLIC_OUTPUT_MODE:-medium}
+      - CACHE_ENABLED=${CACHE_ENABLED:-true}
+      - NEXT_PUBLIC_CACHE_ENABLED=${NEXT_PUBLIC_CACHE_ENABLED:-true}
+      - RATE_LIMIT_MAX=${RATE_LIMIT_MAX:-30}
+      - TRACKING_FLOW_URL=${TRACKING_FLOW_URL:-}
+      - GEMINI_PRICING_JSON=${GEMINI_PRICING_JSON:-}
+      - CLIENT_SOURCE=${CLIENT_SOURCE:-folder}
+      - CLIENT_DATA_DIR=${CLIENT_DATA_DIR:-/app/data/client}
+      - REDIS_HOST=${REDIS_HOST:-redis-cache}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+    volumes:
+      - maruti-data:/app/data
+      # Client datasets shown in the UI picker (point at the client's export folder / share)
+      - ${CLIENT_DATA_HOST_DIR:-./data/client}:/app/data/client:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:3000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks:
+      - maruti-network
+
+  redis-cache:
+    image: redis:7-alpine
+    container_name: maruti-redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - maruti-network
+
+networks:
+  maruti-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  maruti-data:

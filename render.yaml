@@ -1,0 +1,18 @@
+# Render blueprint: New > Blueprint > pick this repo and branch. Enter GEMINI_API_KEY when prompted.
+services:
+  - type: web
+    name: cars24-analyst
+    runtime: docker
+    plan: free
+    branch: main
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash
+      - key: OUTPUT_MODE
+        value: medium
+      - key: RATE_LIMIT_MAX
+        value: "30"

@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8f9fa;
+  --foreground: #111827;
+  --cars24-blue: #4736fe;
+  --cars24-ink: #0f172a;
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Crazy Futuristic Turbo Loader Animations */
+@keyframes crazy-spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes crazy-spin-ccw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes crazy-spin-turbo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(720deg); }
+}
+
+@keyframes crazy-laser-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+@keyframes crazy-core-pulse {
+  0%, 100% {
+    transform: scale(0.92);
+    filter: drop-shadow(0 0 6px rgba(227, 24, 55, 0.7)) drop-shadow(0 0 12px rgba(255, 87, 34, 0.5));
+  }
+  50% {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 14px rgba(227, 24, 55, 1)) drop-shadow(0 0 24px rgba(0, 229, 255, 0.8));
+  }
+}
+
+@keyframes crazy-shockwave {
+  0% { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@keyframes crazy-eq-1 { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+@keyframes crazy-eq-2 { 0%, 100% { height: 14px; } 50% { height: 5px; } }
+@keyframes crazy-eq-3 { 0%, 100% { height: 8px; } 50% { height: 18px; } }
+@keyframes crazy-eq-4 { 0%, 100% { height: 16px; } 50% { height: 6px; } }
+@keyframes crazy-eq-5 { 0%, 100% { height: 6px; } 50% { height: 15px; } }
+
+.animate-crazy-cw {
+  animation: crazy-spin-cw 8s linear infinite;
+  transform-origin: center;
+}
+
+.animate-crazy-ccw {
+  animation: crazy-spin-ccw 6s linear infinite;
+  transform-origin: center;
+}
+
+.animate-crazy-turbo {
+  animation: crazy-spin-turbo 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: center;
+}
+
+.animate-crazy-laser {
+  animation: crazy-laser-scan 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-crazy-pulse {
+  animation: crazy-core-pulse 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.animate-crazy-shockwave {
+  animation: crazy-shockwave 1.6s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+  transform-origin: center;
+}
+
